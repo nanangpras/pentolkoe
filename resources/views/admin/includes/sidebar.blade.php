@@ -123,16 +123,9 @@
             <li class="sidebar-title">
                 Produk & Service
             </li>
-            @forelse ($productUser as $item)
-                <li class="active">
-                    <a href="{{route('product.mytransaction', ['user' => Auth::user()->id, 'category' => $item->name])}}" ><i class="material-icons">web_asset</i>{{$item->name}}</a>
-                </li>
-            @empty
-                <li class="#">
-                    <a href="#" ><i class="material-icons">web_asset</i>Anda belum membeli produk</a>
-                </li>
-            @endforelse
-
+            <li class="{{ set_active(['member.course.list','member.course.list','member.course.list']) }}">
+                <a href="{{route('member.course.list')}}" ><i class="material-icons">school</i>Course</a>
+            </li>
             <li class="sidebar-title">
                 Transaksi
             </li>
@@ -145,9 +138,7 @@
             <li class="{{ set_active(['product.index','product.create','product.edit']) }}">
                 <a href="{{route('shop.index')}}" ><i class="material-icons">inventory</i>Shop</a>
             </li>
-            <li class="{{ set_active(['product.index','product.create','product.edit']) }}">
-                <a href="{{route('shop.index')}}" ><i class="material-icons">school</i>Course</a>
-            </li>
+            
 
             <li class="sidebar-title">
                 Settings
