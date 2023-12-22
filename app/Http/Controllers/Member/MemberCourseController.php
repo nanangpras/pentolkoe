@@ -25,13 +25,15 @@ class MemberCourseController extends Controller
     public function detailCourse($slug)
     {
         $detail = $this->courseService->detailCourse($slug);
+        // view()->share('detail',$detail);
         // dd($detail);
         return view('course.pages.course-content',compact('detail'));
     }
 
-    public function detailLesson($id)
+    public function detailLesson(Request $request, $id)
     {
-        $detail = $this->courseService->detailCourse($id);
+        $slug = $request->slug;
+        $detail = $this->courseService->detailCourse($slug);
         $lessonDetail = $this->courseService->detailLesson($id);
         return view('course.pages.lesson-content',compact('lessonDetail','detail'));
     }

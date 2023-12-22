@@ -9,24 +9,27 @@
     @if(Auth::user()->role =='user')
     <div class="page-sidebar-inner slimscroll">
         <ul class="accordion-menu">
-            @foreach ($detail->chapters as $chapter)
-                <li class="{{set_active('category.index')}}">
-                    <a href="{{route('category.index')}}"><i class="material-icons">category</i><i class="material-icons has-sub-menu">add</i>{{$chapter->name}}</a>
-                    @forelse ($chapter->lessons as $lesson)    
-                        <ul class="sub-menu">
-                            <li>
-                                <a href="{{route('member.course.lesson',$lesson->id)}}" class="{{set_active_sub('purchase.create')}}">{{$lesson->name}}</a>
-                            </li>
-                        </ul>
-                    @empty
-                        <ul class="sub-menu">
-                            <li>
-                                <a href="#">---</a>
-                            </li>
-                        </ul>
-                    @endforelse
-                </li>
-            @endforeach
+            @if($detail && $detail->chapters)
+                @foreach ($detail->chapters as $chapter)
+                    <li class="{{set_active('category.index')}}">
+                        <a href="#"><i class="material-icons">category</i><i class="material-icons has-sub-menu">add</i>{{$chapter->name}}</a>
+                        @forelse ($chapter->lessons as $lesson)    
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="{{route('member.course.lesson',$lesson->id)}}" class="{{set_active_sub('purchase.create')}}">{{$lesson->name}}</a>
+                                    {{-- <a href="#" id="menu_course_{{$lesson->id}}" class="{{set_active_sub('purchase.create')}}">{{$lesson->name}}</a> --}}
+                                </li>
+                            </ul>
+                        @empty
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="#">---</a>
+                                </li>
+                            </ul>
+                        @endforelse
+                    </li>
+                @endforeach
+            @endif
             <li>
                 <a href="{{route('logout')}}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="material-icons">logout</i>Log Out</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST">
@@ -38,3 +41,5 @@
     @endif
 
 </div>
+@push('after-scripts')
+@endpush
