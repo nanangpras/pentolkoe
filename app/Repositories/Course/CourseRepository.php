@@ -5,6 +5,7 @@ namespace App\Repositories\Course;
 use App\Models\Chapter;
 use App\Models\Coupon;
 use App\Models\Lesson;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Repositories\Course\InterfaceCourse;
 
@@ -61,5 +62,25 @@ class CourseRepository implements InterfaceCourse
     {
         $delete = Lesson::find($id);
         $delete->delete();
+    }
+
+    // member
+
+    public function listCourseFree()
+    {
+        $data = Product::with('productImages')->where('flags', '=','free')->get();
+        return $data;
+    }
+
+    public function detailCourse($slug)
+    {
+        $detail = Product::with(['chapters','chapters.lessons'])->where('slug', '=',$slug)->first();
+        return $detail;
+    }
+
+    public function detailLesson($id)
+    {
+        $lesson = Lesson::findOrFail($id);
+        return $lesson;
     }
 }

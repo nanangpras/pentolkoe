@@ -17,16 +17,22 @@
     </div> --}}
 </div>
 <div class="main-wrapper">
-    <h6>Detail Transaksi</h6>
-
+    <h6 class="mb-4">Tipe Course</h6>
     <div class="profile-content">
-        <div class="col-lg-8">
-            <div class="card card-transactions">
-                <div class="card-body">
-                    <h5 class="card-title">Detail Transaksi<a href="#" class="card-title-helper blockui-transactions"><i class="material-icons">refresh</i></a></h5>
-                    
+        <button type="button" class="btn btn-success rounded-pill">Gratis</button>
+        <button type="button" class="btn btn-success rounded-pill">Premium</button>
+        <div class="col-lg-3 mt-4">
+            @foreach ($list as $course)
+                <div class="card">
+                    <img src="{{asset('themes/assets/images/card_1.jpg')}}" class="card-img-top" alt="Placeholder">
+                    <div class="card-body">
+                        <h1 class="card-title">{{$course->title}}</h1> 
+                        <span>{{$course->flags}}</span>
+                        <p class="card-text">{!! $course->short_description !!}</p>
+                        <a href="{{route('member.course.detail',$course->slug)}}" class="btn btn-primary">Tonton Sekarang</a>
+                    </div>
                 </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </div>

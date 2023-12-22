@@ -45,12 +45,15 @@ class ProductRepository implements InterfaceProduct
         })->get();
     }
 
+    // ambil semua produk berdasarkan tipe kategori
     public function getAllbyTypeCategory($category)
     {
         return $this->product->with(['category','productImages'])->whereHas('category',function($q) use($category) {
             $q->where('type',$category);
         })->get();
     }
+
+    // detail produk sesuai tipe kategori
     public function getByIdTypeCategory($id,$category)
     {
         return $this->product->with(['category','productImages','chapters','chapters.lessons'])->whereHas('category',function($q) use($category) {

@@ -102,7 +102,7 @@
                                         @if (auth::user()->role == 'admin')
                                         <li><a href="{{ route('admin.dashboard') }}">My Account</a></li>
                                         @else
-                                        <li><a href="{{ route('member.dashboard') }}">My Account</a></li>
+                                        <li><a href="{{ route('profile.edit') }}">My Account</a></li>
                                         @endif
                                         <li>
                                             <a href="{{ route('logout') }}"

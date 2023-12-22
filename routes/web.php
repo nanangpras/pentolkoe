@@ -19,7 +19,7 @@ use App\Http\Controllers\Home\CartController;
 use App\Http\Controllers\Home\CheckoutController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Home\ShopController;
-use App\Http\Controllers\Member\CourseController as MemberCourseController;
+use App\Http\Controllers\Member\MemberCourseController;
 use App\Http\Controllers\Member\MemberDashboradController;
 use App\Http\Controllers\ProfileController;
 use Faker\Provider\ar_EG\Company;
@@ -63,7 +63,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['roleCheck:user', 'auth','verified'])->group(function () {
-    Route::get('/member/dashboard', [MemberDashboradController::class,'index'])->name('member.dashboard');
+    Route::get('member/dashboard', [MemberDashboradController::class,'index'])->name('member.dashboard');
     Route::post('/checkout-process',[CheckoutController::class, 'process'])->name('checkout.process');
     Route::get('/member/transaction/detail/{code}',[MemberDashboradController::class, 'detailTransaction'])->name('member.detail.transaction');
     Route::get('/member/transaction/list/{id}',[MemberDashboradController::class, 'myTransaaction'])->name('member.mytransaction');
@@ -76,13 +76,16 @@ Route::middleware(['roleCheck:user', 'auth','verified'])->group(function () {
     Route::post('/cart/update-cart',[CartController::class,'updateCart'])->name('update.cart');
     Route::get('/delete-cart/{id}', [CartController::class, 'deleteCart'])->name('delete-cart');
     Route::post('/cart/apply-coupon',[CartController::class,'applyCoupon'])->name('apply.coupon');
+
     Route::prefix('/member/course')->name('member.')->group(function(){
         Route::get('list',[MemberCourseController::class, 'index'])->name('course.list');
+        Route::get('detail/{slug}',[MemberCourseController::class, 'detailCourse'])->name('course.detail');
+        Route::get('detail/lesson/{id}',[MemberCourseController::class, 'detailLesson'])->name('course.lesson');
     });
 });
 
 Route::middleware(['roleCheck:admin', 'auth','verified'])->group(function () {
-    Route::get('/admin/dashboard',[AdminDashboardController::class,'index'])->name('admin.dashboard');
+    Route::get('admin/dashboard',[AdminDashboardController::class,'index'])->name('admin.dashboard');
 
     Route::resource('category', CategoryController::class);
     Route::resource('subcategory', SubCategoryController::class);

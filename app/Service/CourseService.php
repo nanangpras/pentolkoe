@@ -69,4 +69,21 @@ class CourseService
     {
         return $this->course->deleteLesson($id);
     }
+
+    // member
+
+    public function listCourseFree()
+    {
+        return $this->course->listCourseFree();
+    }
+
+    public function detailCourse($slug)
+    {
+        return $this->course->detailCourse($slug);
+    }
+
+    public function detailLesson($id)
+    {
+        return $this->course->detailLesson($id);
+    }
 }
