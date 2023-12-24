@@ -9,6 +9,9 @@
     @if(Auth::user()->role =='user')
     <div class="page-sidebar-inner slimscroll">
         <ul class="accordion-menu">
+            <li>
+                <a href="{{route('member.course.list')}}"><i class="material-icons">login</i>Kembali ke Dashboard</a>
+            </li>
             @if($detail && $detail->chapters)
                 @foreach ($detail->chapters as $chapter)
                     <li class="{{set_active('category.index')}}">
@@ -16,7 +19,7 @@
                         @forelse ($chapter->lessons as $lesson)    
                             <ul class="sub-menu">
                                 <li>
-                                    <a href="{{route('member.course.lesson',$lesson->id)}}" class="{{set_active_sub('purchase.create')}}">{{$lesson->name}}</a>
+                                    <a href="#" id="menu_lesson" data-id="{{$lesson->id}}" data-video="{{$lesson->video}}" class="{{set_active_sub('purchase.create')}}">{{$lesson->name}}</a>
                                     {{-- <a href="#" id="menu_course_{{$lesson->id}}" class="{{set_active_sub('purchase.create')}}">{{$lesson->name}}</a> --}}
                                 </li>
                             </ul>
@@ -30,16 +33,22 @@
                     </li>
                 @endforeach
             @endif
-            <li>
-                <a href="{{route('logout')}}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="material-icons">logout</i>Log Out</a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                    @csrf
-                </form>
-            </li>
         </ul>
     </div>
     @endif
 
 </div>
 @push('after-scripts')
+    <script>
+        $('iframe').hide();
+        $('a[id="menu_lesson"]').click(function (e) { 
+            e.preventDefault();
+            var id = $(this).attr('data-id');
+            var video = $(this).attr('data-video');
+            var convertUrl = video.replace("watch?v=", "embed/");
+
+            $('iframe').attr('src',convertUrl).show();
+            // $('#video_lesson').attr('src',convertUrl);
+        });
+    </script>
 @endpush

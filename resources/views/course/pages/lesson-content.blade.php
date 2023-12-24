@@ -21,7 +21,9 @@
         <div class="col-lg-3 mt-4">
             <div class="card">
                 <div class="card-body">
-                    pelajaran disini
+                    <video id="video_lesson" src="">
+
+                    </video>
                 </div>
             </div>
         </div>
